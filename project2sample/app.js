@@ -13,6 +13,7 @@ var db = require('./db');
 mongoose.connect('mongodb://localhost/project-2-sample');
 
 var index = require('./routes/index');
+var sessions = require('./routes/sessions');
 var users = require('./routes/users');
 var authors = require('./routes/authors');
 
@@ -38,25 +39,35 @@ app.use(session({
 }));
 
 app.use('/', index);
+app.use('/sessions', sessions);
 app.use('/users', users);
 app.use('/authors', authors);
 
+function hello(req, res, next) {
+    console.log('HELLO FROM MIDDLEWARE>>>>>>>>>>>');
+    next();
+};
+
+app.get('/test-middleware', authHelpers.authorize, function(req, res) {
+    res.send('hi');
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
 });
 
 module.exports = app;
