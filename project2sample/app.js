@@ -5,10 +5,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 var methodOverride = require('method-override');
 var db = require('./db');
 
-mongoose.connect('mongodb://localhost/project-2');
+mongoose.connect('mongodb://localhost/project-2-sample');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -28,6 +29,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
+
+app.use(session({
+    secret: "derpderpderpcats",
+    resave: false,
+    saveUninitialized: false
+}));
 
 app.use('/', index);
 app.use('/users', users);
