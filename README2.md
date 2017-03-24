@@ -86,14 +86,15 @@ On line 47, above the catch 404, add:
 ```
 function hello(req, res, next) {
   console.log('HELLO FROM MIDDLEWARE>>>>>>>>>>>');
-  next()
-}
+  next();
+};
 
 app.get('/test-middleware', authHelpers.authorize, function(req, res) {
-  res.send('hi')
-})
+  res.send('hi');
+});
 ```
 
+### Create User Model
 ##### In the terminal
 1. `touch models/user.js`
 
@@ -115,13 +116,14 @@ UserSchema.pre('save', function(next) {
   now = new Date();
   this.updated_at = now;
 
-  if (!this.created_at) { this.created_at = now }
-  next()
+  if (!this.created_at) { this.created_at = now; }
+  next();
 });
 
 module.exports = mongoose.model('User', UserSchema);
 ```
 
+### Create User Index
 ##### In the terminal, add:
 1. `mkdir views/users`
 2. `touch views/users/index.hbs`
@@ -135,39 +137,38 @@ var authHelpers = require('../helpers/auth.js');
 
 // users index
 router.get('/', function(req, res) {
-  console.log(req.session)
-  User.find({})
-  .exec(function(err, users){
-    if (err) { console.log(err); }
-    res.render('users/index.hbs', {
-      users: users,
-      currentUser: req.session.currentUser
-    });
-  });
+    console.log(req.session)
+    User.find({})
+        .exec(function(err, users){
+            if (err) { console.log(err); }
+                res.render('users/index.hbs', {
+                users: users,
+                currentUser: req.session.currentUser
+            });
+        });
 });
 
 module.exports = router;
 ```
 
-
-##### In the routes/sessions.js, add in your routes
+##### In the views/users/index.hbs
 ```
-router.get('/login', function(req, res) {
-  res.render('users/login.hbs')
-})
+{{#if currentUser}}
+    <h4>welcome {{currentUser.email}}</h4>
+{{/if}}
 
-router.post('/login', authHelpers.loginUser, function(req, res){
-  console.log(req.session)
-  res.redirect('/users')
-});
-
-router.delete('/', function(req, res){
-  req.session.destroy(function() {
-    res.redirect('/users')
-  })
-})
+{{#each users}}
+    <ul>
+        <li>{{id}}</li>
+        <li>{{email}}</li>
+        <li>{{password_digest}}</li>
+    </ul>
+{{/each}}
 ```
 
+<br />
+
+### Create Signup
 ##### In the terminal, add:
 1. `mkdir views/users`
 2. `touch views/users/signup.hbs`
@@ -180,6 +181,26 @@ router.get('/signup', function(req, res){
 });
 ```
 
+##### In the views/users/signup.hbs
+```
+<form action="/users" method="post">
+  <div>
+    <label for="email">email</label>
+    <input type="text" name="email">
+  </div>
+
+  <div>
+    <label for="password">password</label>
+    <input type="text" name="password">
+  </div>
+
+  <input type="submit" value="Submit">
+</form>
+```
+
+<br />
+
+### Show User
 ##### In the terminal, add:
 1. `mkdir views/users`
 2. `touch views/users/show.hbs`
@@ -196,7 +217,13 @@ router.get('/:id', authHelpers.authorize, function(req, res) {
     res.render('users/show.hbs', { user } );
   });
 });
+```
 
+<br />
+
+### Create User
+##### In the routes/users.js, add in your routes
+```
 // create user
 router.post('/', authHelpers.createSecure, function(req, res){
   var user = new User({
@@ -213,20 +240,29 @@ router.post('/', authHelpers.createSecure, function(req, res){
 });
 ```
 
-##### In the routes/users.js, add in your routes
+### Sessions Login
+##### In the routes/sessions.js, add in your routes
 ```
-// create user
-router.post('/', authHelpers.createSecure, function(req, res){
-  var user = new User({
-    email: req.body.email,
-    password_digest: res.hashedPassword
-  });
+router.get('/login', function(req, res) {
+  res.render('users/login.hbs')
+});
+```
 
-  user.save(function(err, user){
-    if (err) console.log(err);
+### Sessions Login Create
+##### In the routes/sessions.js, add in your routes
+```
+router.post('/login', authHelpers.loginUser, function(req, res){
+  console.log(req.session)
+  res.redirect('/users')
+});
+```
 
-    console.log(user);
-    res.redirect('/users');
+### Sessions Login Delete
+##### In the routes/sessions.js, add in your routes
+```
+router.delete('/', function(req, res){
+  req.session.destroy(function() {
+    res.redirect('/users')
   });
 });
 ```
