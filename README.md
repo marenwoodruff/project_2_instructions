@@ -48,6 +48,7 @@ As this is a MEN stack app, we have a few node packages that we need to install.
 * body-parser
 * bcrypt
 * express-session
+* pry
 
 ##### other tools of the trade
 * bootstrap
@@ -75,9 +76,13 @@ As this is a MEN stack app, we have a few node packages that we need to install.
 2. `npm install --save method-override`
 3. `npm install --save bcrypt`
 4. `npm install --save express-session`
+5. `npm install --save pryjs`
 
 ##### We know that when we npm install something, we need to require it.
 1. subl .
+2. In our app.js, at the very top of the page, add:
+	* `pry = require('pryjs');`
+		* Don't use 'var' 
 1. In our app.js, underneath the `var express`, add:
 	* `var mongoose = require('mongoose');`
 2. Underneath the `var bodyParser`, add:

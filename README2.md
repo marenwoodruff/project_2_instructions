@@ -146,11 +146,46 @@ router.get('/', function(req, res) {
   });
 });
 
+module.exports = router;
+```
+
+
+##### In the routes/sessions.js, add in your routes
+```
+router.get('/login', function(req, res) {
+  res.render('users/login.hbs')
+})
+
+router.post('/login', authHelpers.loginUser, function(req, res){
+  console.log(req.session)
+  res.redirect('/users')
+});
+
+router.delete('/', function(req, res){
+  req.session.destroy(function() {
+    res.redirect('/users')
+  })
+})
+```
+
+##### In the terminal, add:
+1. `mkdir views/users`
+2. `touch views/users/signup.hbs`
+
+##### In the routes/users.js, add in your routes
+```
 // user signup
 router.get('/signup', function(req, res){
   res.render('users/signup.hbs')
 });
+```
 
+##### In the terminal, add:
+1. `mkdir views/users`
+2. `touch views/users/show.hbs`
+
+##### In the routes/users.js, add in your routes
+```
 // user show
 router.get('/:id', authHelpers.authorize, function(req, res) {
   User.findById(req.params.id)
@@ -176,25 +211,22 @@ router.post('/', authHelpers.createSecure, function(req, res){
     res.redirect('/users');
   });
 });
-
-module.exports = router;
 ```
 
-
-##### In the routes/sessions.js, add in your routes
+##### In the routes/users.js, add in your routes
 ```
-router.get('/login', function(req, res) {
-  res.render('users/login.hbs')
-})
+// create user
+router.post('/', authHelpers.createSecure, function(req, res){
+  var user = new User({
+    email: req.body.email,
+    password_digest: res.hashedPassword
+  });
 
-router.post('/login', authHelpers.loginUser, function(req, res){
-  console.log(req.session)
-  res.redirect('/users')
+  user.save(function(err, user){
+    if (err) console.log(err);
+
+    console.log(user);
+    res.redirect('/users');
+  });
 });
-
-router.delete('/', function(req, res){
-  req.session.destroy(function() {
-    res.redirect('/users')
-  })
-})
 ```
