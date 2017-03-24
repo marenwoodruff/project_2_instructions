@@ -12,7 +12,7 @@ I didn't create user stories, but this is the time where I normally would.  Fran
 
 ## Basic Pseudocode
 #### What do we need to do?
-* We need to create an author model, with an embedded book document.
+* We need to create an author model.
 * We need to create some seed data for our authors and their books.
 * We would like to create index, show, edit, new, update, delete routes for our authors.
 	* Create an author controller/route
