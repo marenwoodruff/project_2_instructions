@@ -46,6 +46,8 @@ As this is a MEN stack app, we have a few node packages that we need to install.
 * method-override
 * morgan
 * body-parser
+* bcrypt
+* express-session
 
 ##### other tools of the trade
 * bootstrap
@@ -71,15 +73,29 @@ As this is a MEN stack app, we have a few node packages that we need to install.
 ##### We are still missing a few npm packages that we need
 1. `npm install --save mongoose` <br />
 2. `npm install --save method-override`
+3. `npm install --save bcrypt`
+4. `npm install --save express-session`
 
 ##### We know that when we npm install something, we need to require it.
 1. subl .
 1. In our app.js, underneath the `var express`, add:
 	* `var mongoose = require('mongoose');`
 2. Underneath the `var bodyParser`, add:
+	* `var session = require('express-session');`<br />
+	**&&**
 	* `var methodOverride = require('method-override');`
 3. To give us access to method override, underneath the `app.use(express.static...`, around line 26 add:
-	* `app.use(methodOverride('_method'));`
+	* `app.use(methodOverride('_method'));`<br />
+	**&&**
+	
+	```
+	app.use(session({
+	  secret: "derpderpderpcats",
+	  resave: false,
+	  saveUninitialized: false
+	}));
+	```
+
 4. In the terminal, type `npm start`
 
 ##### Express generator
@@ -105,8 +121,8 @@ This is a great start!  But there are still a few things that we need to add.
 
 
 ##### Back to the set up
-1. mkdir models
-2. `touch db.js seeds.js models/author.js routes/authors.js
+1. `mkdir models`
+2. `touch db.js seeds.js models/author.js routes/authors.js`
 
 <br />
 
