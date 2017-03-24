@@ -1,8 +1,35 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  text-align: center;
 }
 
 a {
-  color: #00B7FF;
+    color: #000;
+}
+
+a:hover {
+    color: #209aca;
+}
+
+ol {
+    list-style-type: none;
+    padding: 20px 0px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0px;
+}
+
+ol li {
+    padding-bottom: 15px;
+}
+
+.btn.btn-primary, .btn.btn-danger {
+    margin-top: 20px;
+}
+
+.btn.btn-default {
+    margin-top: 50px;
 }

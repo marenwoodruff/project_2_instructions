@@ -44,7 +44,6 @@ As this is a MEN stack app, we have a few node packages that we need to install.
 * method-override
 * morgan
 * body-parser
-* bcrypt
 * express-session
 * pry
 
@@ -72,7 +71,9 @@ As this is a MEN stack app, we have a few node packages that we need to install.
 ##### We are still missing a few npm packages that we need
 1. `npm install --save mongoose` <br />
 2. `npm install --save method-override`
-3. `npm install --save bcrypt`
+3. `npm install --save bcrypt` <br />
+	**OR**
+	* `npm install --save bcrypt-nodejs`
 4. `npm install --save express-session`
 5. `npm install --save pryjs`
 
@@ -271,28 +272,31 @@ var saintExupery = new Author({
     first_name: 'Antoine',
     last_name: 'de Saint-Exupery',
     country: 'France',
-    books: [{title: 'The Little Prince', publication_year: '1943'}]
+    book_title: 'The Little Prince',
+    publication_year: '1943'
 });
 
 var fforde = new Author({
     first_name: 'Jasper',
     last_name: 'Fforde',
     country: 'England',
-    books: [{title: 'The Eyre Affair', publication_year: '2001'}]
+    book_title: 'The Eyre Affair',
+    publication_year: '2001'
 });
 
 var willig = new Author({
     first_name: 'Lauren',
     last_name: 'Willig',
     country: 'United States',
-    books: [{title: 'The Secret History of the Pink Carnation', publication_year: '2000'}]
+    book_title: 'The Secret History of the Pink Carnation', 	publication_year: '2000'
 });
 
 var lutz = new Author({
     first_name: 'Lisa',
     last_name: 'Lutz',
     country: 'Unites States',
-    books: [{title: 'The Spellman Files: A Novel', publication_year: '2007'}]
+    book_title: 'The Spellman Files: A Novel',
+    publication_year: '2007'
 });
 
 
@@ -325,6 +329,7 @@ lutz.save(function(err) {
 ##### You should see this response in your terminal:
 
 ```
+null
 Fforde created!
 de Saint-Exupery created!
 Lutz created!
@@ -507,7 +512,7 @@ router.get('/:id', function(req, res) {
 ```
 <h1>{{author.fullName}}</h1>
 <h3>{{author.country}}</h3>
-<p>{{author.bookTitle}}, {{author.publication_year}}</p>
+<p>{{author.book_title}}, {{author.publication_year}}</p>
 
 <a href="/authors" class="btn btn-default">Main Page</a>
 ```
@@ -611,6 +616,31 @@ router.post('/', function(req, res) {
 
 ![author's post in postman](https://i.imgur.com/qIodAQo.png)
 
+### Update our routes/author's post route to route correctly
+##### In our routes/authors.js
+```
+// create author
+router.post('/', function(req, res) {
+    var author = new Author({
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        country: req.body.country,
+        book_title: req.body.book_title,
+        publication_year: req.body.publication_year
+    });
+    author.save(function(err, author){
+        if (err) { console.log(err); }
+
+        console.log(author);
+        // res.send(author);
+        res.render('author/show', {
+        	author: author
+        });
+    });
+});
+```
+This will redirect to the author show page.
+
 Check it out!  We have a working new and post route!  So, we have the 'CR' in CRUD. Let's work on the 'U' next.
 
 <br />
@@ -697,7 +727,7 @@ router.patch('/:id', function(req, res) {
         country: req.body.country,
         book_title: req.body.book_title,
         publication_year: req.body.publication_year
-    })
+    }, {new: true})
         .exec(function(err, author) {
             if (err) { console.log(err); }
 
@@ -769,6 +799,29 @@ router.delete('/:id', function(req, res) {
             if (err) { console.log(err); }
 
             console.log('Author deleted.');
+            res.send('Author deleted.');  
+        });
+});
+```
+
+1. restart npm- `control + c`, then `npm start`
+2. Open postman and go to localhost:3000/authors/:id, copy the id of an author.
+3. Make sure that you have DELETE HTTP verb selected.
+4. You should see 'Author deleted.'
+
+<br />
+
+### Create our routes/author's delete route
+##### In our routes/authors.js
+```
+// delete author
+router.delete('/:id', function(req, res) {
+    Author.findByIdAndRemove(req.params.id)
+        .exec(function(err, author) {
+            if (err) { console.log(err); }
+
+            console.log('Author deleted.');
+            // res.send('Author deleted.');
             // redirect back to the index route
             res.redirect('/authors');  
         });
@@ -790,4 +843,17 @@ Yesyesyesyesyes! Our shit works.  Full CRUD!
 
 <br />
 
+![giphy hooray](https://media.giphy.com/media/l46CimW38a7TFxLVe/giphy.gif)
+
 **Now, you just have to add the user/bcrypt info in.  And you're good!**
+
+<br />
+<br />
+
+### P.S. If you want to update your package.json
+```
+"scripts": {
+    "start": "node ./bin/www",
+    "start-dev": "nodemon ./bin/www"
+},
+```
