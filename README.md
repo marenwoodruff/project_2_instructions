@@ -15,20 +15,18 @@ I didn't create user stories, but this is the time where I normally would.  Fran
 * We need to create an author model.
 * We need to create some seed data for our authors and their books.
 * We would like to create index, show, edit, new, update, delete routes for our authors.
-	* Create an author controller/route
+	* Create an author controllers/route
 	* Create a views/authors folder in which to add our views 
 
 <br />
 
 ## ERDs
-#### BookSchema
-     title: String
-     publication_year: String
 #### AuthorSchema
      first_name: String
      last_name: String
      country: String
-     books: [BookSchema]
+     book_title: String,
+     publication_year: String
 
 <br />
 
