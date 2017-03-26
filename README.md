@@ -408,7 +408,7 @@ module.exports = router;
     <li>
         <h1><a href="/authors/{{this.id}}">{{this.fullName}}</a></h1>
         <h3>{{this.country}}</h3>
-        <p>{{this.bookTitle}}, {{this.publication_year}}</p>
+        <p>{{this.book_title}}, {{this.publication_year}}</p>
     </li>
     {{/each}}
 </ol>
