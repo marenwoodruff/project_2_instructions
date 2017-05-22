@@ -75,34 +75,34 @@ As this is a MEN stack app, we have a few node packages that we need to install.
 ##### We are still missing a few npm packages that we need
 1. `npm install --save mongoose` <br />
 2. `npm install --save method-override`
-3. `npm install --save bcrypt` <br />
+<!-- 3. `npm install --save bcrypt` <br />
 	**OR**
-	* `npm install --save bcrypt-nodejs`
-4. `npm install --save express-session`
-5. `npm install --save pryjs`
+	* `npm install --save bcrypt-nodejs` -->
+<!-- 4. `npm install --save express-session` -->
+<!-- 5. `npm install --save pryjs` -->
 
 ##### We know that when we npm install something, we need to require it.
-1. subl .
-2. In our app.js, at the very top of the page, add:
+1. `subl .`
+<!-- 2. In our app.js, at the very top of the page, add:
 	* `pry = require('pryjs');`
-		* Don't use 'var' 
-1. In our app.js, underneath the `var express`, add:
+		* Don't use 'var'  -->
+2. In our app.js, underneath the `var express`, add:
 	* `var mongoose = require('mongoose');`
-2. Underneath the `var bodyParser`, add:
-	* `var session = require('express-session');`<br />
-	**&&**
+3. Underneath the `var bodyParser`, add:
+<!-- 	* `var session = require('express-session');`<br />
+	**&&** -->
 	* `var methodOverride = require('method-override');`
-3. To give us access to method override, underneath the `app.use(express.static...`, around line 26 add:
+4. To give us access to method override, underneath the `app.use(express.static...`, around line 26 add:
 	* `app.use(methodOverride('_method'));`<br />
 	**&&**
 	
-```
+<!-- ```
 app.use(session({
   secret: "derpderpderpcats",
   resave: false,
   saveUninitialized: false
 }));
-```
+``` -->
 
 4. In the terminal, type `npm start`
 
