@@ -92,15 +92,15 @@ As this is a MEN stack app, we have a few node packages that we need to install.
 
 3. Underneath the `var bodyParser`, add:
 
-<!-- 	* `var session = require('express-session');`<br />
-	**&&** -->
+  * `var methodOverride = require('method-override');`
 
-	* `var methodOverride = require('method-override');`
+  <!--  * `var session = require('express-session');`<br />
+  **&&** -->
 
 4. To give us access to method override, underneath the `app.use(express.static...`, around line 26 add:
 
 	* `app.use(methodOverride('_method'));`<br />
-  
+
 	<!-- **&&** -->
 	
 <!-- ```
