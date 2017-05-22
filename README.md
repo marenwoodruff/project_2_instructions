@@ -60,8 +60,8 @@ As this is a MEN stack app, we have a few node packages that we need to install.
 
 ## Set up
 ##### From your ga/projects folder:
-1. run `express --view=hbs --git project_2`
-2. cd into project_2
+1. run `express --view=hbs --git example_project_2`
+2. cd into example_project_2
 3. npm install
 	* packages installed automatically:
 		* body-parser
@@ -131,8 +131,8 @@ This is a great start!  But there are still a few things that we need to add.
 ##### Back to the set up
 1. `mkdir models`
 2. `touch db.js seeds.js models/author.js routes/authors.js`
-3. `touch .gitignore`
-4. inside of your gitignore file, add your node_modules
+
+**The express generator is going to add a .gitignore file for you, with the node_modules inside.  If you decide to create youe MEN app another way, make sure to `touch .gitignore`, and inside of your gitignore file, add your node_modules**
   * This will make it so that when you `git add .` & `git commit -m "initial commit"`, you won't also commit your node_modules into your .git folder.  This will be extremely important when you are deploying to heroku!  You **DO NOT** want to ever commit your node_modules or you will have all sorts of trouble when you try to deploy.
 
 <br />
