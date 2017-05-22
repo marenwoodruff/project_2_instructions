@@ -355,6 +355,8 @@ lutz.save(function(err) {
 ```
 1. in another terminal tab, run `node seeds.js`
 
+**Make sure to `control + c` out of node.**
+
 ##### You should see this response in your terminal:
 
 ```
