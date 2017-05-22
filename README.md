@@ -127,6 +127,9 @@ This is a great start!  But there are still a few things that we need to add.
 ##### Back to the set up
 1. `mkdir models`
 2. `touch db.js seeds.js models/author.js routes/authors.js`
+3. `touch .gitignore`
+4. inside of your gitignore file, add your node_modules
+    * This will make it so that when you `git add .` & `git commit -m "initial commit"`, you won't also commit your node_modules into your .git folder.  This will be extremely important when you are deploying to heroku!  You **DO NOT** want to ever commit your node_modules or you will have all sorts of trouble when you try to deploy.
 
 <br />
 
