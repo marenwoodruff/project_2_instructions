@@ -87,14 +87,21 @@ As this is a MEN stack app, we have a few node packages that we need to install.
 	* `pry = require('pryjs');`
 		* Don't use 'var'  -->
 2. In our app.js, underneath the `var express`, add:
-	* `var mongoose = require('mongoose');`
+	
+  * `var mongoose = require('mongoose');`
+
 3. Underneath the `var bodyParser`, add:
+
 <!-- 	* `var session = require('express-session');`<br />
 	**&&** -->
+
 	* `var methodOverride = require('method-override');`
+
 4. To give us access to method override, underneath the `app.use(express.static...`, around line 26 add:
+
 	* `app.use(methodOverride('_method'));`<br />
-	**&&**
+  
+	<!-- **&&** -->
 	
 <!-- ```
 app.use(session({
