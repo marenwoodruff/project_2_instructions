@@ -6,7 +6,7 @@ Our goal this morning is to create an app to keep track of our favorite books an
 <br />
 
 ## User Stories/Wireframes
-I didn't create user stories, but this is the time where I normally would.  Frankly, creating this repo took a long time.  So...  I focused on that.
+This is the time where you would normally create your user stories, trello board, github repo and wireframes.
 
 <br />
 
@@ -21,12 +21,16 @@ I didn't create user stories, but this is the time where I normally would.  Fran
 <br />
 
 ## ERDs
-#### AuthorSchema
-     first_name: String
-     last_name: String
-     country: String
-     book_title: String,
-     publication_year: String
+
+```
+var AuthorSchema = new Schema({
+  first_name: String
+  last_name: String
+  country: String
+  book_title: String,
+  publication_year: String
+});
+```
 
 <br />
 
@@ -92,13 +96,13 @@ As this is a MEN stack app, we have a few node packages that we need to install.
 	* `app.use(methodOverride('_method'));`<br />
 	**&&**
 	
-	```
-	app.use(session({
-	  secret: "derpderpderpcats",
-	  resave: false,
-	  saveUninitialized: false
-	}));
-	```
+```
+app.use(session({
+  secret: "derpderpderpcats",
+  resave: false,
+  saveUninitialized: false
+}));
+```
 
 4. In the terminal, type `npm start`
 
@@ -129,7 +133,7 @@ This is a great start!  But there are still a few things that we need to add.
 2. `touch db.js seeds.js models/author.js routes/authors.js`
 3. `touch .gitignore`
 4. inside of your gitignore file, add your node_modules
-    * This will make it so that when you `git add .` & `git commit -m "initial commit"`, you won't also commit your node_modules into your .git folder.  This will be extremely important when you are deploying to heroku!  You **DO NOT** want to ever commit your node_modules or you will have all sorts of trouble when you try to deploy.
+  * This will make it so that when you `git add .` & `git commit -m "initial commit"`, you won't also commit your node_modules into your .git folder.  This will be extremely important when you are deploying to heroku!  You **DO NOT** want to ever commit your node_modules or you will have all sorts of trouble when you try to deploy.
 
 <br />
 
@@ -165,15 +169,19 @@ mongoose.promise = global.Promise;
 db.once('open', function() {
   console.log("Opened mongoose.");
 });
+
 db.once('close', function() {
   console.log("Closed mongoose.");
 });
+
 db.on('connected', function() {
   console.log('Mongoose connected to ' + db.host + ':' + db.port + '/' + db.name);
 });
+
 db.on('error', function(err) {
   console.log('Mongoose connection error: ' + err);
 });
+
 db.on('disconnected', function() {
   console.log('Mongoose disconnected');
 });
@@ -204,24 +212,24 @@ var Schema = mongoose.Schema;
 mongoose.promise = global.Promise;
 
 var AuthorSchema = new Schema({
-    first_name: String,
-    last_name: String,
-    country: String,
-    book_title: String,
-    publication_year: String
+  first_name: String,
+  last_name: String,
+  country: String,
+  book_title: String,
+  publication_year: String
 });
 
 AuthorSchema.pre('save', function(next){
-    now = new Date();
-    this.updated_at = now;
-    if ( !this.created_at ) {
-        this.created_at = now;
-    }
-    next();
+  now = new Date();
+  this.updated_at = now;
+  if ( !this.created_at ) {
+    this.created_at = now;
+  }
+  next();
 });
 
 AuthorSchema.virtual('fullName').get(function () {
-    return this.first_name + ' ' + this.last_name;
+  return this.first_name + ' ' + this.last_name;
 });
 
 module.exports = mongoose.model("Author", AuthorSchema);
@@ -268,61 +276,73 @@ var Author = require("./models/author");
 mongoose.promise = global.Promise;
 
 Author.remove({}, function(err) {
-    console.log(err);
+  console.log(err);
 });
 
 var saintExupery = new Author({
-    first_name: 'Antoine',
-    last_name: 'de Saint-Exupery',
-    country: 'France',
-    book_title: 'The Little Prince',
-    publication_year: '1943'
+  first_name: 'Antoine',
+  last_name: 'de Saint-Exupery',
+  country: 'France',
+  book_title: 'The Little Prince',
+  publication_year: '1943'
 });
 
 var fforde = new Author({
-    first_name: 'Jasper',
-    last_name: 'Fforde',
-    country: 'England',
-    book_title: 'The Eyre Affair',
-    publication_year: '2001'
+  first_name: 'Jasper',
+  last_name: 'Fforde',
+  country: 'England',
+  book_title: 'The Eyre Affair',
+  publication_year: '2001'
 });
 
 var willig = new Author({
-    first_name: 'Lauren',
-    last_name: 'Willig',
-    country: 'United States',
-    book_title: 'The Secret History of the Pink Carnation', 	publication_year: '2000'
+  first_name: 'Lauren',
+  last_name: 'Willig',
+  country: 'United States',
+  book_title: 'The Secret History of the Pink Carnation',
+  publication_year: '2000'
 });
 
 var lutz = new Author({
-    first_name: 'Lisa',
-    last_name: 'Lutz',
-    country: 'Unites States',
-    book_title: 'The Spellman Files: A Novel',
-    publication_year: '2007'
+  first_name: 'Lisa',
+  last_name: 'Lutz',
+  country: 'Unites States',
+  book_title: 'The Spellman Files: A Novel',
+  publication_year: '2007'
 });
 
-
 saintExupery.save(function(err) {
-  if (err) console.log(err);
+  if (err) {
+    console.log(err);
+    return;
+  }
 
   console.log('de Saint-Exupery created!');
 });
 
 fforde.save(function(err) {
-  if (err) console.log(err);
+  if (err) {
+    console.log(err);
+    return;
+  }
 
   console.log('Fforde created!');
 });
 
 willig.save(function(err) {
-  if (err) console.log(err);
+  if (err) {
+    console.log(err);
+    return;
+  }
 
   console.log('Willig created!');
 });
 
 lutz.save(function(err) {
-  if (err) console.log(err);
+  if (err) {
+    console.log(err);
+    return;
+  }
 
   console.log('Lutz created!');
 });
@@ -340,6 +360,8 @@ Willig created!
 ```
 Hooray! We now have some seeds of my favorite author!
 
+(Remember that if you see the null at the end, you have removed all instances of author from your database)
+
 <br />
 
 ### Setting up the routes/author's index route to show our data
@@ -352,14 +374,17 @@ var Author = require('../models/author');
 
 // index authors
 router.get('/', function(req, res) {
-    // res.send('authors will be here');
-    Author.find({})
-        .exec(function(err, authors) {
-            if(err) console.log(err);
+  // res.send('authors will be here');
+  Author.find({})
+    .exec(function(err, authors) {
+      if(err) {
+          console.log(err);
+          return;
+      }
 
-            console.log(authors);
-            res.send(authors);
-        });
+      console.log(authors);
+      res.send(authors);
+    });
 });
 
 module.exports = router;
@@ -386,17 +411,20 @@ var Author = require('../models/author');
 
 // index authors
 router.get('/', function(req, res) {
-    // res.send('authors will be here');
-    Author.find({})
-        .exec(function(err, authors) {
-            if(err) console.log(err);
+  // res.send('authors will be here');
+  Author.find({})
+    .exec(function(err, authors) {
+      if (err) {
+        console.log(err);
+        return;
+      }
 
-            console.log(authors);
-            // res.send(authors);
-            res.render('authors/index', {
-            	  authors: authors
-            });
-        });
+      console.log(authors);
+      // res.send(authors);
+      res.render('authors/index', {
+      	  authors: authors
+      });
+    });
 });
 
 module.exports = router;
@@ -407,13 +435,13 @@ module.exports = router;
 <h1>My Favorite Authors</h1>
 
 <ol>
-    {{#each authors}}
+  {{#each authors}}
     <li>
-        <h1><a href="/authors/{{this.id}}">{{this.fullName}}</a></h1>
-        <h3>{{this.country}}</h3>
-        <p>{{this.book_title}}, {{this.publication_year}}</p>
+      <h1><a href="/authors/{{this.id}}">{{this.fullName}}</a></h1>
+      <h3>{{this.country}}</h3>
+      <p>{{this.book_title}}, {{this.publication_year}}</p>
     </li>
-    {{/each}}
+  {{/each}}
 </ol>
 ```
 **Notice that I added the a href link above, which will set us up for what we are doing next- the show route.**
@@ -433,33 +461,33 @@ body {
 }
 
 a {
-    color: #000;
+  color: #000;
 }
 
 a:hover {
-    color: #209aca;
+  color: #209aca;
 }
 
 ol {
-    list-style-type: none;
-    padding: 20px 0px;
+  list-style-type: none;
+  padding: 20px 0px;
 }
 
 ul {
-    list-style-type: none;
-    padding: 0px;
+  list-style-type: none;
+  padding: 0px;
 }
 
 ol li {
-    padding-bottom: 15px;
+  padding-bottom: 15px;
 }
 
 .btn.btn-primary, .btn.btn-danger {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .btn.btn-default {
-    margin-top: 50px;
+  margin-top: 50px;
 }
 ```
 1. Refresh the browser check that this works at localhost:3000/authors
@@ -473,13 +501,16 @@ Sweet! Our index page looks pretty great!  So, now we need to create our show pa
 ```
 // show author
 router.get('/:id', function(req, res) {
-    Author.findById(req.params.id)
-        .exec(function(err, author) {
-            if(err) console.log(err);
+  Author.findById(req.params.id)
+    .exec(function(err, author) {
+      if (err) {
+        console.log(err);
+        return;
+      }
 
-            console.log(author);
-            res.send(author);
-        });
+      console.log(author);
+      res.send(author);
+    });
 });
 ```
 1. restart npm- `control + c`, then `npm start`
@@ -498,16 +529,19 @@ router.get('/:id', function(req, res) {
 ```
 // show author
 router.get('/:id', function(req, res) {
-    Author.findById(req.params.id)
-        .exec(function(err, author) {
-            if(err) console.log(err);
+  Author.findById(req.params.id)
+    .exec(function(err, author) {
+      if (err) {
+        console.log(err);
+        return;
+      }
 
-            console.log(author);
-            // res.send(author);
-            res.render('authors/show', {
-                author: author
-            });
-        });
+      console.log(author);
+      // res.send(author);
+      res.render('authors/show', {
+        author: author
+      });
+    });
 });
 ```
 
@@ -534,7 +568,7 @@ Great!  We have a working index and a working show route!  So, we have the 'R' i
 ```
 // new author
 router.get('/new', function(req, res) {
-    res.render('authors/new');
+  res.render('authors/new');
 });
 ```
 
@@ -543,31 +577,31 @@ router.get('/new', function(req, res) {
 <h1>Create a New Author</h1>
 
 <div class="row">
-    <form action="/authors" method="POST" class="col-md-6 col-md-offset-3">
-        <div class="form-group">
-            <label for="first_name">First Name:</label>
-            <input type="text" name="first_name" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="last_name">Last Name:</label>
-            <input type="text" name="last_name" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="country">Country:</label>
-            <input type="text" name="country" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="book_title">Book Title:</label>
-            <input type="text" name="book_title" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="publication_year">Publication Year:</label>
-            <input type="text" name="publication_year" class="form-control">
-        </div>
-        <div>
-            <input type="submit" value="Submit" class="btn btn-primary">
-        </div>
-    </form>
+  <form action="/authors" method="POST" class="col-md-6 col-md-offset-3">
+    <div class="form-group">
+      <label for="first_name">First Name:</label>
+      <input type="text" name="first_name" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="last_name">Last Name:</label>
+      <input type="text" name="last_name" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="country">Country:</label>
+      <input type="text" name="country" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="book_title">Book Title:</label>
+      <input type="text" name="book_title" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="publication_year">Publication Year:</label>
+      <input type="text" name="publication_year" class="form-control">
+    </div>
+    <div>
+      <input type="submit" value="Submit" class="btn btn-primary">
+    </div>
+  </form>
 </div>
 
 <a href="/authors" class="btn btn-default">Main Page</a>
@@ -591,19 +625,22 @@ However, if we hit submit, we will get a 404 error because we haven't created ou
 ```
 // create author
 router.post('/', function(req, res) {
-    var author = new Author({
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        country: req.body.country,
-        book_title: req.body.book_title,
-        publication_year: req.body.publication_year
-    });
-    author.save(function(err, author){
-        if (err) { console.log(err); }
+  var author = new Author({
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    country: req.body.country,
+    book_title: req.body.book_title,
+    publication_year: req.body.publication_year
+  });
+  author.save(function(err, author){
+    if (err) {
+      console.log(err);
+      return;
+    }
 
-        console.log(author);
-        res.send(author);
-    });
+    console.log(author);
+    res.send(author);
+  });
 });
 ```
 
@@ -613,7 +650,7 @@ router.post('/', function(req, res) {
 4. add these key value pairs 
 	* first_name: "Shel"
 	* last_name: "Silverstein"
-	* country: "United State"
+	* country: "United States"
 	* book_title: "The Giving Tree"
 	* publication_year: "1964"
 
@@ -624,22 +661,25 @@ router.post('/', function(req, res) {
 ```
 // create author
 router.post('/', function(req, res) {
-    var author = new Author({
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        country: req.body.country,
-        book_title: req.body.book_title,
-        publication_year: req.body.publication_year
-    });
-    author.save(function(err, author){
-        if (err) { console.log(err); }
+  var author = new Author({
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    country: req.body.country,
+    book_title: req.body.book_title,
+    publication_year: req.body.publication_year
+  });
+  author.save(function(err, author){
+    if (err) {
+      console.log(err);
+      return;
+    }
 
-        console.log(author);
-        // res.send(author);
-        res.render('author/show', {
-        	author: author
-        });
+    console.log(author);
+    // res.send(author);
+    res.render('author/show', {
+    	author: author
     });
+  });
 });
 ```
 This will redirect to the author show page.
@@ -656,14 +696,17 @@ Check it out!  We have a working new and post route!  So, we have the 'CR' in CR
 ```
 // edit author
 router.get('/:id/edit', function(req,res) {
-    Author.findById(req.params.id)
-    .exec(function(err, author) {
-        if (err) { console.log(err); }
+  Author.findById(req.params.id)
+  .exec(function(err, author) {
+    if (err) {
+      console.log(err);
+      return;
+    }
 
-        res.render('authors/edit', {
-            author: author
-        });
+    res.render('authors/edit', {
+      author: author
     });
+  });
 });
 ```
 
@@ -672,43 +715,43 @@ router.get('/:id/edit', function(req,res) {
 <h1>Edit {{author.fullName}}</h1>
 
 <div class="row">
-    <form action="/authors/{{author.id}}?_method=PATCH" method="POST" class="col-md-6 col-md-offset-3">
-        <div class="form-group">
-            <label for="first_name">First Name:</label>
-            <input type="text" name="first_name" value="{{author.first_name}}" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="last_name">Last Name:</label>
-            <input type="text" name="last_name" value="{{author.last_name}}" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="country">Country:</label>
-            <input type="text" name="country" value="{{author.country}}" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="book_title">Book Title:</label>
-            <input type="text" name="book_title" value="{{author.book_title}}" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="publication_year">Publication Year:</label>
-            <input type="text" name="publication_year" value="{{author.publication_year}}" class="form-control">
-        </div>
-        <div>
-            <input type="submit" value="Submit" class="btn btn-primary">
-        </div>
-    </form>
+  <form action="/authors/{{author.id}}?_method=PATCH" method="POST" class="col-md-6 col-md-offset-3">
+    <div class="form-group">
+      <label for="first_name">First Name:</label>
+      <input type="text" name="first_name" value="{{author.first_name}}" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="last_name">Last Name:</label>
+      <input type="text" name="last_name" value="{{author.last_name}}" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="country">Country:</label>
+      <input type="text" name="country" value="{{author.country}}" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="book_title">Book Title:</label>
+      <input type="text" name="book_title" value="{{author.book_title}}" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="publication_year">Publication Year:</label>
+      <input type="text" name="publication_year" value="{{author.publication_year}}" class="form-control">
+    </div>
+    <div>
+      <input type="submit" value="Submit" class="btn btn-primary">
+    </div>
+  </form>
 </div>
 
 <div>
-    <a href="/authors/{{author.id}}" class="btn btn-default">Back</a>
-    <a href="/authors" class="btn btn-default">Main Page</a>
+  <a href="/authors/{{author.id}}" class="btn btn-default">Back</a>
+  <a href="/authors" class="btn btn-default">Main Page</a>
 </div>
 ```
 
 ##### In our views/authors/show, add a new route below your ul tag:
 ```
 <div>
-    <a href="/authors/{{author.id}}/edit" class="btn btn-primary">Edit {{author.fullName}}</a>
+  <a href="/authors/{{author.id}}/edit" class="btn btn-primary">Edit {{author.fullName}}</a>
 </div>
 ``` 
 
@@ -724,26 +767,29 @@ However, if we hit submit, we will get a 404 error because we haven't created ou
 ```
 // update author
 router.patch('/:id', function(req, res) {
-    Author.findByIdAndUpdate(req.params.id, {
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        country: req.body.country,
-        book_title: req.body.book_title,
-        publication_year: req.body.publication_year
-    }, {new: true})
-        .exec(function(err, author) {
-            if (err) { console.log(err); }
+  Author.findByIdAndUpdate(req.params.id, {
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    country: req.body.country,
+    book_title: req.body.book_title,
+    publication_year: req.body.publication_year
+  }, {new: true})
+  .exec(function(err, author) {
+    if (err) {
+      console.log(err);
+      return;
+    }
 
-            console.log(author);
-            res.send(author);
-        });
+    console.log(author);
+    res.send(author);
+  });
 });
 ```
 
 ##### In our views/authors/show, add a edit link below your ul tag:
 ```
 <div>
-    <a href="/authors/{{author.id}}/edit" class="btn btn-primary">Edit {{author.fullName}}</a>
+  <a href="/authors/{{author.id}}/edit" class="btn btn-primary">Edit {{author.fullName}}</a>
 </div>
 ``` 
 
@@ -769,22 +815,25 @@ router.patch('/:id', function(req, res) {
 ```
 // update author
 router.patch('/:id', function(req, res) {
-    Author.findByIdAndUpdate(req.params.id, {
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        country: req.body.country,
-        book_title: req.body.book_title,
-        publication_year: req.body.publication_year
-    }, { new: true })
-        .exec(function(err, author) {
-            if (err) { console.log(err); }
+  Author.findByIdAndUpdate(req.params.id, {
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    country: req.body.country,
+    book_title: req.body.book_title,
+    publication_year: req.body.publication_year
+  }, { new: true })
+    .exec(function(err, author) {
+      if (err) {
+        console.log(err);
+        return;
+      }
 
-            console.log(author);
-            // res.send(author);
-            res.render('authors/show', {
-                author: author
-            });
-        });
+      console.log(author);
+      // res.send(author);
+      res.render('authors/show', {
+        author: author
+      });
+    });
 });
 ```
 
@@ -797,13 +846,16 @@ Yes!  We have a working edit and update route!  So, we have the 'CRU' in CRUD. L
 ```
 // delete author
 router.delete('/:id', function(req, res) {
-    Author.findByIdAndRemove(req.params.id)
-        .exec(function(err, author) {
-            if (err) { console.log(err); }
+  Author.findByIdAndRemove(req.params.id)
+    .exec(function(err, author) {
+      if (err) {
+        console.log(err);
+        return;
+      }
 
-            console.log('Author deleted.');
-            res.send('Author deleted.');  
-        });
+      console.log('Author deleted.');
+      res.send('Author deleted.');  
+    });
 });
 ```
 
@@ -819,22 +871,25 @@ router.delete('/:id', function(req, res) {
 ```
 // delete author
 router.delete('/:id', function(req, res) {
-    Author.findByIdAndRemove(req.params.id)
-        .exec(function(err, author) {
-            if (err) { console.log(err); }
+  Author.findByIdAndRemove(req.params.id)
+    .exec(function(err, author) {
+      if (err) {
+        console.log(err);
+        return;
+      }
 
-            console.log('Author deleted.');
-            // res.send('Author deleted.');
-            // redirect back to the index route
-            res.redirect('/authors');  
-        });
+      console.log('Author deleted.');
+      // res.send('Author deleted.');
+      // redirect back to the index route
+      res.redirect('/authors');  
+    });
 });
 ```
 
 ##### In our views/authors/show, add a delete form below your edit div:
 ```
 <form action="/authors/{{author.id}}?_method=DELETE" method="POST">
-    <input type="submit" value="DELETE" class="btn btn-danger" />
+  <input type="submit" value="DELETE" class="btn btn-danger" />
 </form>
 ``` 
 
