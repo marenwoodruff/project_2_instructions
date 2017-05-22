@@ -59,7 +59,7 @@ As this is a MEN stack app, we have a few node packages that we need to install.
 <br />
 
 ## Set up
-##### From your ga/projects folder:
+#### From your ga/projects folder:
 1. run `express --view=hbs --git example_project_2`
 2. cd into example_project_2
 3. npm install
@@ -72,7 +72,7 @@ As this is a MEN stack app, we have a few node packages that we need to install.
 		* morgan
 		* serve-favicon
 		
-##### We are still missing a few npm packages that we need
+#### We are still missing a few npm packages that we need
 1. `npm install --save mongoose` <br />
 2. `npm install --save method-override`
 <!-- 3. `npm install --save bcrypt` <br />
@@ -81,7 +81,7 @@ As this is a MEN stack app, we have a few node packages that we need to install.
 <!-- 4. `npm install --save express-session` -->
 <!-- 5. `npm install --save pryjs` -->
 
-##### We know that when we npm install something, we need to require it.
+#### We know that when we npm install something, we need to require it.
 1. `subl .`
 <!-- 2. In our app.js, at the very top of the page, add:
 	* `pry = require('pryjs');`
@@ -113,7 +113,7 @@ app.use(session({
 
 4. In the terminal, type `npm start`
 
-##### Express generator
+#### Express generator
 Like Danny stated yesterday, the express generator gives us a lot.
 
 	* app.js
@@ -134,8 +134,7 @@ Like Danny stated yesterday, the express generator gives us a lot.
 
 This is a great start!  But there are still a few things that we need to add.
 
-
-##### Back to the set up
+#### Back to the set up
 1. `mkdir models`
 2. `touch db.js seeds.js models/author.js routes/authors.js`
 
@@ -145,7 +144,7 @@ This is a great start!  But there are still a few things that we need to add.
 <br />
 
 ### Back to the app: Adding in bootstrap
-##### In the views/layout.hbs
+#### In the views/layout.hbs:
 In the head tag, above the `stylesheets/style.css` link, add this link:
 
 ```
@@ -196,7 +195,7 @@ db.on('disconnected', function() {
 module.exports = db;
 ```
 
-##### In the app.js
+#### In the app.js:
 Underneath the `var methodOverride`, add:
 
 ```
@@ -922,3 +921,5 @@ Yesyesyesyesyes! Our shit works.  Full CRUD!
     "start-dev": "nodemon ./bin/www"
 },
 ```
+
+To run this, in your terminal, type `npm run start-dev`
