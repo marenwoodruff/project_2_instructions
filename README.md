@@ -110,8 +110,15 @@ app.use(session({
   saveUninitialized: false
 }));
 ``` -->
+5. In your package.json, add the start:dev key/value pair to your scripts object:
+```
+"scripts": {
+    "start": "node ./bin/www",
+    "start:dev": "nodemon ./bin/www"
+},
+```
 
-5. In the terminal, type `npm run start:dev`
+6. To run this, in your terminal, type `npm run start:dev`
 
 #### Express generator
 Like Danny stated yesterday, the express generator gives us a lot.
@@ -204,8 +211,8 @@ var db = require('./db');
 mongoose.connect('mongodb://localhost/project-2');
 ```
 
-1. In the terminal, type `npm start`
-2. If you open localhost:3000, do you see the basic express app view?
+<!-- 1. In the terminal, type `npm start` -->
+1. If you open localhost:3000, do you see the basic express app view?
 
 <br />
 
@@ -312,7 +319,7 @@ var willig = new Author({
 var lutz = new Author({
   first_name: 'Lisa',
   last_name: 'Lutz',
-  country: 'Unites States',
+  country: 'United States',
   book_title: 'The Spellman Files: A Novel',
   publication_year: '2007'
 });
@@ -397,8 +404,8 @@ router.get('/', function(req, res) {
 
 module.exports = router;
 ```
-1. restart npm- `control + c`, then `npm start`
-2. Open postman and check that this works at localhost:3000/authors
+<!-- 1. restart npm- `control + c`, then `npm run start:dev` -->
+1. Open postman and check that this works at localhost:3000/authors
 
 ![author's index in postman](https://i.imgur.com/FzCDIrw.png)
 
@@ -521,9 +528,9 @@ router.get('/:id', function(req, res) {
     });
 });
 ```
-1. restart npm- `control + c`, then `npm start`
-2. Open postman and from the index page, copy the id of an author at localhost:3000/authors
-3. Add that id to the end of the url localhost:3000/authors/:id
+<!-- 1. restart npm- `control + c`, then `npm start` -->
+1. Open postman and from the index page, copy the id of an author at localhost:3000/authors
+2. Add that id to the end of the url localhost:3000/authors/:id
 
 ![author's show in postman](https://i.imgur.com/yvU2PQx.png)
 
@@ -561,8 +568,8 @@ router.get('/:id', function(req, res) {
 
 <a href="/authors" class="btn btn-default">Main Page</a>
 ```
-1. restart npm- `control + c`, then `npm start`
-2. Open the browser check that this works at localhost:3000/authors/:id
+<!-- 1. restart npm- `control + c`, then `npm start` -->
+1. Open the browser check that this works at localhost:3000/authors/:id
 
 Great!  We have a working index and a working show route!  So, we have the 'R' in CRUD. Let's work on the 'C' next.
 
@@ -622,8 +629,8 @@ router.get('/new', function(req, res) {
 <a href="/authors/new" class="btn btn-default">Create a New Author</a>
 ``` 
 
-1. restart npm- `control + c`, then `npm start`
-2. Add that id to the end of the url localhost:3000/authors/new
+<!-- 1. restart npm- `control + c`, then `npm start` -->
+1. Add that id to the end of the url localhost:3000/authors/new
 
 However, if we hit submit, we will get a 404 error because we haven't created our post route yet.
 
@@ -653,10 +660,10 @@ router.post('/', function(req, res) {
 });
 ```
 
-1. restart npm- `control + c`, then `npm start`
-2. Open postman and go to localhost:3000/authors, with the POST http verb selected.
-3. In the body, make sure the x-www.form-urlencoded is clicked.
-4. add these key value pairs 
+<!-- 1. restart npm- `control + c`, then `npm start` -->
+1. Open postman and go to localhost:3000/authors, with the POST http verb selected.
+2. In the body, make sure the x-www.form-urlencoded is clicked.
+3. add these key value pairs 
 	* first_name: "Shel"
 	* last_name: "Silverstein"
 	* country: "United States"
@@ -764,8 +771,8 @@ router.get('/:id/edit', function(req,res) {
 </div>
 ``` 
 
-1. restart npm- `control + c`, then `npm start`
-2. Click on the main author's page, click on the show link, click on the edit linklocalhost:3000/authors/:id/edit
+<!-- 1. restart npm- `control + c`, then `npm start` -->
+1. Click on the main author's page, click on the show link, click on the edit linklocalhost:3000/authors/:id/edit
 
 However, if we hit submit, we will get a 404 error because we haven't created our update route yet.
 
@@ -795,12 +802,12 @@ router.patch('/:id', function(req, res) {
 });
 ```
 
-1. restart npm- `control + c`, then `npm start`
-2. Open postman and go to localhost:3000/authors, copy the id of an author.
-3. Open localhost:3000/authors/:id/edit
+<!-- 1. restart npm- `control + c`, then `npm start` -->
+1. Open postman and go to localhost:3000/authors, copy the id of an author.
+2. Open localhost:3000/authors/:id/edit
 3. Change the HTTP verb to PATCH.
-3. In the body, make sure the x-www.form-urlencoded is clicked.
-4. add these key value pairs 
+4. In the body, make sure the x-www.form-urlencoded is clicked.
+5. add these key value pairs 
 	* first_name: "Shel"
 	* last_name: "Silverstein"
 	* country: "United States"
@@ -861,10 +868,10 @@ router.delete('/:id', function(req, res) {
 });
 ```
 
-1. restart npm- `control + c`, then `npm start`
-2. Open postman and go to localhost:3000/authors/:id, copy the id of an author.
-3. Make sure that you have DELETE HTTP verb selected.
-4. You should see 'Author deleted.'
+<!-- 1. restart npm- `control + c`, then `npm start` -->
+1. Open postman and go to localhost:3000/authors/:id, copy the id of an author.
+2. Make sure that you have DELETE HTTP verb selected.
+3. You should see 'Author deleted.'
 
 <br />
 
@@ -895,9 +902,9 @@ router.delete('/:id', function(req, res) {
 </form>
 ``` 
 
-1. restart npm- `control + c`, then `npm start`
-2. Open the browser, go to localhost:3000/authors, click on an author, click on the delete link.
-3. It should redirect you back to the main page.
+<!-- 1. restart npm- `control + c`, then `npm start` -->
+1. Open the browser, go to localhost:3000/authors, click on an author, click on the delete link.
+2. It should redirect you back to the main page.
 
 Yesyesyesyesyes! Our shite works.  Full effing CRUD!
 
@@ -909,13 +916,3 @@ Yesyesyesyesyes! Our shite works.  Full effing CRUD!
 
 <br />
 <br />
-
-### P.S. If you want to update your package.json
-```
-"scripts": {
-    "start": "node ./bin/www",
-    "start-dev": "nodemon ./bin/www"
-},
-```
-
-To run this, in your terminal, type `npm run start-dev`
