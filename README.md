@@ -111,7 +111,7 @@ app.use(session({
 }));
 ``` -->
 
-4. In the terminal, type `npm start`
+5. In the terminal, type `npm run start:dev`
 
 #### Express generator
 Like Danny stated yesterday, the express generator gives us a lot.
@@ -357,7 +357,7 @@ lutz.save(function(err) {
 
 **Make sure to `control + c` out of node.**
 
-##### You should see this response in your terminal:
+#### You should see this response in your terminal:
 
 ```
 null
@@ -373,7 +373,7 @@ Hooray! We now have some seeds of my favorite author!
 <br />
 
 ### Setting up the routes/author's index route to show our data
-##### In our routes/authors.js:
+#### In our routes/authors.js:
 ```
 var express = require('express');
 var router = express.Router();
@@ -386,8 +386,8 @@ router.get('/', function(req, res) {
   Author.find({})
     .exec(function(err, authors) {
       if(err) {
-          console.log(err);
-          return;
+        console.log(err);
+        return;
       }
 
       console.log(authors);
@@ -430,7 +430,7 @@ router.get('/', function(req, res) {
       console.log(authors);
       // res.send(authors);
       res.render('authors/index', {
-      	  authors: authors
+      	authors: authors
       });
     });
 });
@@ -460,7 +460,7 @@ module.exports = router;
 <br />
 
 ### Because I am not a big fan of this basic css
-##### In our public/stylesheets/style.css
+#### In our public/stylesheets/style.css
 ```
 body {
   padding: 50px;
@@ -505,7 +505,7 @@ Sweet! Our index page looks pretty great!  So, now we need to create our show pa
 <br />
 
 ### Setting up our routes/author's show route
-##### In our routes/authors.js
+#### In our routes/authors.js
 ```
 // show author
 router.get('/:id', function(req, res) {
@@ -530,10 +530,10 @@ router.get('/:id', function(req, res) {
 <br />
 
 ### Now that we know that it works
-##### In our terminal
+#### In our terminal
 1. `touch views/authors/show.hbs`
 
-##### In our routes/authors.js
+#### In our routes/authors.js
 ```
 // show author
 router.get('/:id', function(req, res) {
@@ -553,7 +553,7 @@ router.get('/:id', function(req, res) {
 });
 ```
 
-##### In our views/authors/show.hbs
+#### In our views/authors/show.hbs
 ```
 <h1>{{author.fullName}}</h1>
 <h3>{{author.country}}</h3>
@@ -569,18 +569,19 @@ Great!  We have a working index and a working show route!  So, we have the 'R' i
 <br />
 
 ### Setting up our routes/author's new route
-##### In our terminal
+#### In our terminal
 1. `touch views/authors/new.hbs`
 
-##### In our routes/authors.js (above our show route- because order matters)
+#### In our routes/authors.js (above our show route- because order matters)
 ```
 // new author
 router.get('/new', function(req, res) {
   res.render('authors/new');
 });
 ```
+**Be careful to put this route above your show route**
 
-##### In our views/authors/new.hbs
+#### In our views/authors/new.hbs
 ```
 <h1>Create a New Author</h1>
 
@@ -616,7 +617,7 @@ router.get('/new', function(req, res) {
 
 ```
 
-##### In our views/authors/index.hbs, add a new route underneath your ol tag:
+#### In our views/authors/index.hbs, add a new route underneath your ol tag:
 ```
 <a href="/authors/new" class="btn btn-default">Create a New Author</a>
 ``` 
@@ -629,7 +630,7 @@ However, if we hit submit, we will get a 404 error because we haven't created ou
 <br />
 
 ### Create our routes/author's post route
-##### In our routes/authors.js
+#### In our routes/authors.js
 ```
 // create author
 router.post('/', function(req, res) {
@@ -640,7 +641,7 @@ router.post('/', function(req, res) {
     book_title: req.body.book_title,
     publication_year: req.body.publication_year
   });
-  author.save(function(err, author){
+  author.save(function(err, author) {
     if (err) {
       console.log(err);
       return;
@@ -665,7 +666,7 @@ router.post('/', function(req, res) {
 ![author's post in postman](https://i.imgur.com/qIodAQo.png)
 
 ### Update our routes/author's post route to route correctly
-##### In our routes/authors.js
+#### In our routes/authors.js
 ```
 // create author
 router.post('/', function(req, res) {
@@ -676,7 +677,7 @@ router.post('/', function(req, res) {
     book_title: req.body.book_title,
     publication_year: req.body.publication_year
   });
-  author.save(function(err, author){
+  author.save(function(err, author) {
     if (err) {
       console.log(err);
       return;
@@ -697,10 +698,10 @@ Check it out!  We have a working new and post route!  So, we have the 'CR' in CR
 <br />
 
 ### Setting up our routes/author's edit route
-##### In our terminal
+#### In our terminal
 1. `touch views/authors/edit.hbs`
 
-##### In our routes/authors.js (above our show route- because order matters)
+#### In our routes/authors.js
 ```
 // edit author
 router.get('/:id/edit', function(req,res) {
@@ -718,7 +719,7 @@ router.get('/:id/edit', function(req,res) {
 });
 ```
 
-##### In our views/authors/edit.hbs
+#### In our views/authors/edit.hbs
 ```
 <h1>Edit {{author.fullName}}</h1>
 
@@ -756,7 +757,7 @@ router.get('/:id/edit', function(req,res) {
 </div>
 ```
 
-##### In our views/authors/show, add a new route below your ul tag:
+##### In our views/authors/show, add a new route below your last p tag:
 ```
 <div>
   <a href="/authors/{{author.id}}/edit" class="btn btn-primary">Edit {{author.fullName}}</a>
@@ -875,7 +876,7 @@ router.delete('/:id', function(req, res) {
 <br />
 
 ### Create our routes/author's delete route
-##### In our routes/authors.js
+#### In our routes/authors.js
 ```
 // delete author
 router.delete('/:id', function(req, res) {
@@ -894,7 +895,7 @@ router.delete('/:id', function(req, res) {
 });
 ```
 
-##### In our views/authors/show, add a delete form below your edit div:
+#### In our views/authors/show, add a delete form below your edit div:
 ```
 <form action="/authors/{{author.id}}?_method=DELETE" method="POST">
   <input type="submit" value="DELETE" class="btn btn-danger" />
@@ -905,7 +906,7 @@ router.delete('/:id', function(req, res) {
 2. Open the browser, go to localhost:3000/authors, click on an author, click on the delete link.
 3. It should redirect you back to the main page.
 
-Yesyesyesyesyes! Our shit works.  Full CRUD!
+Yesyesyesyesyes! Our shite works.  Full effing CRUD!
 
 <br />
 
