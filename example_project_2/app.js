@@ -7,8 +7,13 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
+var db = require('./db');
+
+mongoose.connect('mongodb://localhost/project-2');
+
 var index = require('./routes/index');
 var users = require('./routes/users');
+var authors = require('./routes/authors');
 
 var app = express();
 
@@ -27,6 +32,7 @@ app.use(methodOverride('_method'));
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/authors', authors);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -795,13 +795,6 @@ router.patch('/:id', function(req, res) {
 });
 ```
 
-##### In our views/authors/show, add a edit link below your ul tag:
-```
-<div>
-  <a href="/authors/{{author.id}}/edit" class="btn btn-primary">Edit {{author.fullName}}</a>
-</div>
-``` 
-
 1. restart npm- `control + c`, then `npm start`
 2. Open postman and go to localhost:3000/authors, copy the id of an author.
 3. Open localhost:3000/authors/:id/edit
