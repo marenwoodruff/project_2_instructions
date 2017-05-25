@@ -120,6 +120,8 @@ app.use(session({
 
 6. To run this, in your terminal, type `npm run start:dev`
 
+7. For any other commands that you want to run, open another terminal tab.
+
 #### Express generator
 Like Danny stated yesterday, the express generator gives us a lot.
 
