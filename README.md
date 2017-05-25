@@ -272,8 +272,9 @@ module.exports = router;
 1. Just like with a controller, if we add another route, we have to set it up in our `app.js`, add:
 	* around line 15, under your other routes, add: `var authors = require('./routes/authors');`
 	* around line 24, under your other app.use, add: `app.use('/authors', authors);`
-2. Close your npm start/restart- `control + c`, then `npm start`
-3. Check out the results in postman at localhost:3000/authors
+<!-- 2. Close your npm start/restart- `control + c`, then `npm start` -->
+2. Check out the results in postman at localhost:3000/authors
+
 ![authors index set up](https://i.imgur.com/cWvkgvh.png)
 
 <br />
@@ -461,8 +462,8 @@ module.exports = router;
 ```
 **Notice that I added the a href link above, which will set us up for what we are doing next- the show route.**
 
-1. restart npm- `control + c`, then `npm start`
-2. Open the browser check that this works at localhost:3000/authors
+<!-- 1. restart npm- `control + c`, then `npm start` -->
+1. Open the browser check that this works at localhost:3000/authors
 
 <br />
 
